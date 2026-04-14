@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Règlement – Thèmes Divers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg: #f5f5f7;
+            --card: #ffffff;
+            --border: #e2e2e7;
+            --accent: #2563eb;
+            --accent-soft: #e0edff;
+            --text: #111827;
+            --muted: #6b7280;
+            --danger: #dc2626;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            scroll-behavior: smooth;
+        }
+
+        body { cursor: none; }
+
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 22px;
+            transform: translate(-50%, -50%);
+            transition: transform 0.08s ease-out;
+        }
+
+        .intro {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at top, #e0edff 0, #f5f5f7 45%, #e5e7eb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .intro.hidden {
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+        }
+
+        .intro-content {
+            text-align: center;
+            padding: 24px 20px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 16px;
+            border: 1px solid rgba(226,232,240,0.9);
+            box-shadow: 0 18px 40px rgba(148,163,184,0.35);
+        }
+
+        .intro-title {
+            margin: 0 0 8px;
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        .intro-subtitle {
+            margin: 0 0 18px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .intro-btn {
+            padding: 10px 20px;
+            border-radius: 999px;
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(37,99,235,0.25);
+        }
+
+        .page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 32px 16px 40px;
+        }
+
+        header {
+            margin-bottom: 24px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+
+        .lang-select {
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            padding: 6px 10px;
+            font-size: 12px;
+            background: #fff;
+            color: var(--text);
+            outline: none;
+        }
+
+        h1 {
+            margin: 0 0 4px;
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            margin: 0;
+            font-size: 14px;
+            color: var(--muted);
+            max-width: 600px;
+        }
+
+        .rules {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .rule {
+            background: var(--card);
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            padding: 14px 14px 12px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .rule.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .rule-title {
+            margin: 0 0 6px;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            gap: 6px;
+            align-items: baseline;
+        }
+
+        .rule-title span:first-child {
+            color: var(--accent);
+        }
+
+        .rule-text {
+            margin: 0;
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .rule-text strong { color: var(--text); }
+
+        .rule-list {
+            margin: 6px 0 0;
+            padding-left: 18px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .rule-list li { margin-bottom: 3px; }
+
+        .danger { color: var(--danger); font-weight: 600; }
+
+        footer {
+            margin-top: 22px;
+            font-size: 12px;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cursor">🦋</div>
+
+<div class="intro" id="intro">
+    <div class="intro-content">
+        <h1 class="intro-title">Thèmes Divers</h1>
+        <p class="intro-subtitle" data-i18n="introSubtitle">
+            Un espace convivial. Lis le règlement, choisis ta langue, puis entre tranquillement.
+        </p>
+        <button id="enterBtn" class="intro-btn" data-i18n="introButton">
+            Entrer et voir le règlement
+        </button>
+    </div>
+</div>
+
+<div class="page">
+    <header>
+        <div class="header-top">
+            <span class="tag" data-i18n="tag">Serveur Discord Officiel · Thèmes Divers</span>
+            <select id="langSelect" class="lang-select">
+                <option value="fr">Français</option>
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="de">Deutsch</option>
+            </select>
+        </div>
+        <h1 data-i18n="title">Règlement du serveur</h1>
+        <p class="subtitle" data-i18n="subtitle">
+            En rejoignant ce serveur, tu acceptes l’ensemble des règles ci‑dessous. Merci de les lire attentivement.
+        </p>
+    </header>
+
+    <main class="rules">
+        <section class="rule">
+            <h2 class="rule-title">
+                <span>1.</span>
+                <span data-i18n="r1Title">Bienvenue & principe général</span>
+            </h2>
+            <p class="rule-text" data-i18n="r1Body">
+                Bienvenue sur le <strong>Serveur Discord Officiel de Thèmes Divers</strong>. Nous sommes ravis d’accueillir
+                chaque nouveau membre et espérons que vous deviendrez rapidement des habitués actifs et respectueux de notre
+                communauté. Avant de participer, merci de prendre le temps de lire attentivement ce règlement. Il a pour but
+                de garantir un environnement agréable, sécurisé et inclusif pour tous. En rejoignant ce serveur, vous acceptez
+                automatiquement l’ensemble des règles ci‑dessous.
+            </p>
+        </section>
+
+        <section class="rule">
+            <h2 class="rule-title">
+                <span>2.</span>
+                <span data-i18n="r2Title">Activités strictement interdites</span>
+            </h2>
+            <ul class="rule-list">
+                <li data-i18n="r2L1">L’achat, la vente, le prêt, l’échange ou le don de comptes, d’objets numériques ou de monnaies virtuelles.</li>
+                <li data-i18n="r2L2">Toute forme de tricherie, piratage, exploits, logiciels modifiés, scripts non autorisés, ou manipulation visant à obtenir un avantage injuste.</li>
+                <li data-i18n="r2L3">Le partage de contenu protégé, données confidentielles, informations sous NDA, datamines, leaks, fichiers de jeux modifiés, ou tout élément violant les conditions d’utilisation d’un service.</li>
+                <li data-i18n="r2L4">La diffusion de fichiers suspects, logiciels potentiellement dangereux, liens piégés ou tout contenu pouvant nuire à la sécurité des membres.</li>
+                <li data-i18n="r2L5">Toute tentative de contourner les règles, les sanctions ou les systèmes de modération.</li>
+            </ul>
+        </section>
+
+        <section class="rule">
+            <h2 class="rule-title">
+                <span>3.</span>
+                <span data-i18n="r3Title">Spam & autopromotion</span>
+            </h2>
+            <ul class="rule-list">
+                <li data-i18n="r3L1">Messages répétés, mentions excessives, chaînes de messages, etc.</li>
+                <li data-i18n="r3L2">Publicités pour des serveurs Discord, réseaux sociaux, sites web, projets personnels ou commerciaux sans autorisation préalable d’un modérateur.</li>
+                <li data-i18n="r3L3">Envoi d’invitations, promotions ou sollicitations en message privé à d’autres membres, même si cela semble “inoffensif”.</li>
+                <li data-i18n="r3L4">Utilisation de bots, macros ou automatisations pour envoyer des messages non sollicités.</li>
+            </ul>
+        </section>
+
+        <section class="rule">
+            <h2 class="rule-title">
+                <span>4.</span>
+                <span data-i18n="r4Title">Contenu sensible & NSFW</span>
+            </h2>
+            <p class="rule-text" data-i18n="r4Intro">
+                Aucun contenu obscène, choquant ou soumis à une limite d’âge n’est autorisé, qu’il s’agisse de texte,
+                d’images, de vidéos ou de liens :
+            </p>
+            <ul class="rule-list">
+                <li data-i18n="r4L1">Violence extrême, gore, hyperviolence, scènes perturbantes ou traumatisantes.</li>
+                <li data-i18n="r4L2">Pseudos, statuts, photos de profil ou bannières contenant des éléments explicites, suggestifs ou inappropriés.</li>
+            </ul>
+            <p class="rule-text" data-i18n="r4End">
+                Le serveur est un espace <strong>tout public</strong>, et ce type de contenu n’y a pas sa place.
+            </p>
+        </section>
+
+        <section class="rule">
+            <h2 class="rule-title">
+                <span>5.</span>
+                <span data-i18n="r5Title">Respect & comportement</span>
+            </h2>
+            <p class="rule-text" data-i18n="r5Intro">
+                Le respect est obligatoire. Les comportements suivants sont strictement interdits :
+            </p>
+            <ul class="rule-list">
+                <li data-i18n="r5L1">Harcèlement, intimidation, menaces, insultes ou attaques personnelles.</li>
+                <li data-i18n="r5L2">Sexisme, racisme, homophobie, transphobie, validisme, xénophobie ou tout discours de haine.</li>
+                <li data-i18n="r5L3">Chasse aux sorcières, diffamation, rumeurs, doxxing ou divulgation d’informations privées.</li>
+                <li data-i18n="r5L4">Provocations, comportements toxiques, trolling volontaire ou tentative de créer des conflits.</li>
+                <li data-i18n="r5L5">Discrimination sous toutes ses formes.</li>
+            </ul>
+            <p class="rule-text" data-i18n="r5End">
+                Chaque membre doit se sentir en sécurité et respecté.
+            </p>
+        </section>
+
+        <section class="rule">
+            <h2 class="rule-title">
+                <span>6.</span>
+                <span data-i18n="r6Title">Signalement & sanctions</span>
+            </h2>
+            <p class="rule-text" data-i18n="r6Intro">
+                Si tu remarques un comportement contraire aux règles, un contenu problématique ou si quelque chose te met
+                mal à l’aise, contacte immédiatement un modérateur. Notre objectif est de maintenir un environnement
+                accueillant, sécurisé et agréable pour tous. Les modérateurs sont là pour aider, écouter et intervenir si
+                nécessaire. Merci de contribuer à faire de ce serveur un espace positif et bienveillant.
+            </p>
+            <p class="rule-text" data-i18n="r6SanctionsIntro">
+                En cas d’infraction grave ou répétée au règlement, des sanctions peuvent être appliquées par l’équipe de
+                modération. Celles‑ci peuvent aller d’un simple avertissement à un <span class="danger">bannissement définitif</span>
+                du serveur. Les situations suivantes peuvent entraîner un bannissement immédiat, sans avertissement préalable :
+            </p>
+            <ul class="rule-list">
+                <li data-i18n="r6L1">Harcèlement, menaces, intimidation ou comportement mettant en danger un membre.</li>
+                <li data-i18n="r6L2">Diffusion de contenu illégal, explicite, dangereux ou volontairement nuisible.</li>
+                <li data-i18n="r6L3">Tentative de piratage, partage de logiciels malveillants, liens frauduleux ou activités compromettant la sécurité du serveur.</li>
+                <li data-i18n="r6L4">Usurpation d’identité, doxxing, divulgation d’informations privées ou personnelles.</li>
+                <li data-i18n="r6L5">Contournement d’une sanction (alt, double compte, VPN utilisé pour revenir après un kick ou un ban).</li>
+                <li data-i18n="r6L6">Attitude toxique persistante malgré plusieurs avertissements, ou volonté manifeste de nuire à la communauté.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer data-i18n="footer">
+        Le non‑respect de ce règlement peut entraîner avertissements, sanctions ou bannissement définitif du serveur.
+    </footer>
+</div>
+
+<script>
+    const i18n = {
+        fr: {
+            introSubtitle: "Un espace convivial. Lis le règlement, choisis ta langue, puis entre tranquillement.",
+            introButton: "Entrer et voir le règlement",
+            tag: "Serveur Discord Officiel · Thèmes Divers",
+            title: "Règlement du serveur",
+            subtitle: "En rejoignant ce serveur, tu acceptes l’ensemble des règles ci‑dessous. Merci de les lire attentivement.",
+            r1Title: "Bienvenue & principe général",
+            r1Body: "Bienvenue sur le <strong>Serveur Discord Officiel de Thèmes Divers</strong>. Nous sommes ravis d’accueillir chaque nouveau membre et espérons que vous deviendrez rapidement des habitués actifs et respectueux de notre communauté. Avant de participer, merci de prendre le temps de lire attentivement ce règlement. Il a pour but de garantir un environnement agréable, sécurisé et inclusif pour tous. En rejoignant ce serveur, vous acceptez automatiquement l’ensemble des règles ci‑dessous.",
+            r2Title: "Activités strictement interdites",
+            r2L1: "L’achat, la vente, le prêt, l’échange ou le don de comptes, d’objets numériques ou de monnaies virtuelles.",
+            r2L2: "Toute forme de tricherie, piratage, exploits, logiciels modifiés, scripts non autorisés, ou manipulation visant à obtenir un avantage injuste.",
+            r2L3: "Le partage de contenu protégé, données confidentielles, informations sous NDA, datamines, leaks, fichiers de jeux modifiés, ou tout élément violant les conditions d’utilisation d’un service.",
+            r2L4: "La diffusion de fichiers suspects, logiciels potentiellement dangereux, liens piégés ou tout contenu pouvant nuire à la sécurité des membres.",
+            r2L5: "Toute tentative de contourner les règles, les sanctions ou les systèmes de modération.",
+            r3Title: "Spam & autopromotion",
+            r3L1: "Messages répétés, mentions excessives, chaînes de messages, etc.",
+            r3L2: "Publicités pour des serveurs Discord, réseaux sociaux, sites web, projets personnels ou commerciaux sans autorisation préalable d’un modérateur.",
+            r3L3: "Envoi d’invitations, promotions ou sollicitations en message privé à d’autres membres, même si cela semble “inoffensif”.",
+            r3L4: "Utilisation de bots, macros ou automatisations pour envoyer des messages non sollicités.",
+            r4Title: "Contenu sensible & NSFW",
+            r4Intro: "Aucun contenu obscène, choquant ou soumis à une limite d’âge n’est autorisé, qu’il s’agisse de texte, d’images, de vidéos ou de liens :",
+            r4L1: "Violence extrême, gore, hyperviolence, scènes perturbantes ou traumatisantes.",
+            r4L2: "Pseudos, statuts, photos de profil ou bannières contenant des éléments explicites, suggestifs ou inappropriés.",
+            r4End: "Le serveur est un espace <strong>tout public</strong>, et ce type de contenu n’y a pas sa place.",
+            r5Title: "Respect & comportement",
+            r5Intro: "Le respect est obligatoire. Les comportements suivants sont strictement interdits :",
+            r5L1: "Harcèlement, intimidation, menaces, insultes ou attaques personnelles.",
+            r5L2: "Sexisme, racisme, homophobie, transphobie, validisme, xénophobie ou tout discours de haine.",
+            r5L3: "Chasse aux sorcières, diffamation, rumeurs, doxxing ou divulgation d’informations privées.",
+            r5L4: "Provocations, comportements toxiques, trolling volontaire ou tentative de créer des conflits.",
+            r5L5: "Discrimination sous toutes ses formes.",
+            r5End: "Chaque membre doit se sentir en sécurité et respecté.",
+            r6Title: "Signalement & sanctions",
+            r6Intro: "Si tu remarques un comportement contraire aux règles, un contenu problématique ou si quelque chose te met mal à l’aise, contacte immédiatement un modérateur. Notre objectif est de maintenir un environnement accueillant, sécurisé et agréable pour tous. Les modérateurs sont là pour aider, écouter et intervenir si nécessaire. Merci de contribuer à faire de ce serveur un espace positif et bienveillant.",
+            r6SanctionsIntro: "En cas d’infraction grave ou répétée au règlement, des sanctions peuvent être appliquées par l’équipe de modération. Celles‑ci peuvent aller d’un simple avertissement à un <span class=\"danger\">bannissement définitif</span> du serveur. Les situations suivantes peuvent entraîner un bannissement immédiat, sans avertissement préalable :",
+            r6L1: "Harcèlement, menaces, intimidation ou comportement mettant en danger un membre.",
+            r6L2: "Diffusion de contenu illégal, explicite, dangereux ou volontairement nuisible.",
+            r6L3: "Tentative de piratage, partage de logiciels malveillants, liens frauduleux ou activités compromettant la sécurité du serveur.",
+            r6L4: "Usurpation d’identité, doxxing, divulgation d’informations privées ou personnelles.",
+            r6L5: "Contournement d’une sanction (alt, double compte, VPN utilisé pour revenir après un kick ou un ban).",
+            r6L6: "Attitude toxique persistante malgré plusieurs avertissements, ou volonté manifeste de nuire à la communauté.",
+            footer: "Le non‑respect de ce règlement peut entraîner avertissements, sanctions ou bannissement définitif du serveur."
+        },
+        en: {
+            introSubtitle: "A friendly space. Read the rules, choose your language, then join calmly.",
+            introButton: "Enter and view the rules",
+            tag: "Official Discord Server · Thèmes Divers",
+            title: "Server rules",
+            subtitle: "By joining this server, you agree to all the rules below. Please read them carefully.",
+            r1Title: "Welcome & general principle",
+            r1Body: "Welcome to the <strong>Official Discord Server of Thèmes Divers</strong>. We are happy to welcome every new member and hope you will quickly become active and respectful regulars of our community. Before participating, please take the time to read these rules carefully. Their purpose is to ensure a pleasant, safe and inclusive environment for everyone. By joining this server, you automatically accept all the rules below.",
+            r2Title: "Strictly prohibited activities",
+            r2L1: "Buying, selling, lending, trading or giving away accounts, digital items or virtual currencies.",
+            r2L2: "Any form of cheating, hacking, exploits, modified software, unauthorized scripts, or manipulation aimed at gaining an unfair advantage.",
+            r2L3: "Sharing protected content, confidential data, NDA information, datamines, leaks, modified game files, or any element violating a service’s terms of use.",
+            r2L4: "Distributing suspicious files, potentially dangerous software, malicious links or any content that may harm members’ security.",
+            r2L5: "Any attempt to bypass rules, sanctions or moderation systems.",
+            r3Title: "Spam & self-promotion",
+            r3L1: "Repeated messages, excessive mentions, message chains, etc.",
+            r3L2: "Advertising Discord servers, social networks, websites, personal or commercial projects without prior approval from a moderator.",
+            r3L3: "Sending invitations, promotions or solicitations in private messages to other members, even if it seems “harmless”.",
+            r3L4: "Using bots, macros or automation to send unsolicited messages.",
+            r4Title: "Sensitive & NSFW content",
+            r4Intro: "No obscene, shocking or age-restricted content is allowed, whether text, images, videos or links:",
+            r4L1: "Extreme violence, gore, hyperviolence, disturbing or traumatic scenes.",
+            r4L2: "Usernames, statuses, profile pictures or banners containing explicit, suggestive or inappropriate elements.",
+            r4End: "This server is a <strong>family-friendly</strong> space, and such content has no place here.",
+            r5Title: "Respect & behaviour",
+            r5Intro: "Respect is mandatory. The following behaviours are strictly prohibited:",
+            r5L1: "Harassment, intimidation, threats, insults or personal attacks.",
+            r5L2: "Sexism, racism, homophobia, transphobia, ableism, xenophobia or any hate speech.",
+            r5L3: "Witch-hunting, defamation, rumours, doxxing or sharing private information.",
+            r5L4: "Provocation, toxic behaviour, deliberate trolling or attempts to create conflict.",
+            r5L5: "Discrimination in any form.",
+            r5End: "Every member must feel safe and respected.",
+            r6Title: "Reporting & sanctions",
+            r6Intro: "If you notice behaviour that breaks the rules, problematic content or anything that makes you uncomfortable, contact a moderator immediately. Our goal is to maintain a welcoming, safe and pleasant environment for everyone. Moderators are here to help, listen and intervene if necessary. Thank you for helping keep this server positive and friendly.",
+            r6SanctionsIntro: "In case of serious or repeated violations of the rules, sanctions may be applied by the moderation team. These can range from a simple warning to a <span class=\"danger\">permanent ban</span> from the server. The following situations may result in an immediate ban, without prior warning:",
+            r6L1: "Harassment, threats, intimidation or behaviour that endangers a member.",
+            r6L2: "Sharing illegal, explicit, dangerous or deliberately harmful content.",
+            r6L3: "Attempted hacking, sharing malware, fraudulent links or activities compromising the server’s security.",
+            r6L4: "Identity theft, doxxing, sharing private or personal information.",
+            r6L5: "Bypassing a sanction (alt account, multiple accounts, VPN used to return after a kick or ban).",
+            r6L6: "Persistent toxic behaviour despite several warnings, or a clear intent to harm the community.",
+            footer: "Failure to comply with these rules may result in warnings, sanctions or permanent ban from the server."
+        },
+        es: {
+            introSubtitle: "Un espacio agradable. Lee las reglas, elige tu idioma y entra tranquilamente.",
+            introButton: "Entrar y ver las reglas",
+            tag: "Servidor oficial de Discord · Thèmes Divers",
+            title: "Reglamento del servidor",
+            subtitle: "Al unirte a este servidor, aceptas todas las reglas siguientes. Por favor, léelas con atención.",
+            r1Title: "Bienvenida & principio general",
+            r1Body: "Bienvenido al <strong>Servidor oficial de Discord de Thèmes Divers</strong>. Nos alegra recibir a cada nuevo miembro y esperamos que pronto te conviertas en un miembro activo y respetuoso de nuestra comunidad. Antes de participar, tómate un momento para leer este reglamento con atención. Su objetivo es garantizar un entorno agradable, seguro e inclusivo para todos. Al unirte a este servidor, aceptas automáticamente todas las reglas que aparecen a continuación.",
+            r2Title: "Actividades estrictamente prohibidas",
+            r2L1: "Compra, venta, préstamo, intercambio o regalo de cuentas, objetos digitales o monedas virtuales.",
+            r2L2: "Cualquier forma de trampas, piratería, exploits, software modificado, scripts no autorizados o manipulación destinada a obtener una ventaja injusta.",
+            r2L3: "Compartir contenido protegido, datos confidenciales, información bajo NDA, datamines, filtraciones, archivos de juego modificados o cualquier elemento que viole los términos de uso de un servicio.",
+            r2L4: "Difusión de archivos sospechosos, software potencialmente peligroso, enlaces maliciosos o cualquier contenido que pueda dañar la seguridad de los miembros.",
+            r2L5: "Cualquier intento de eludir las reglas, las sanciones o los sistemas de moderación.",
+            r3Title: "Spam & autopromoción",
+            r3L1: "Mensajes repetidos, menciones excesivas, cadenas de mensajes, etc.",
+            r3L2: "Publicidad de servidores de Discord, redes sociales, sitios web, proyectos personales o comerciales sin la aprobación previa de un moderador.",
+            r3L3: "Envío de invitaciones, promociones o solicitudes por mensaje privado a otros miembros, incluso si parece “inofensivo”.",
+            r3L4: "Uso de bots, macros o automatizaciones para enviar mensajes no solicitados.",
+            r4Title: "Contenido sensible & NSFW",
+            r4Intro: "No se permite contenido obsceno, impactante o restringido por edad, ya sea texto, imágenes, vídeos o enlaces:",
+            r4L1: "Violencia extrema, gore, hiperviolencia, escenas perturbadoras o traumáticas.",
+            r4L2: "Nombres de usuario, estados, fotos de perfil o banners con elementos explícitos, sugerentes o inapropiados.",
+            r4End: "Este servidor es un espacio <strong>para todos los públicos</strong>, y ese tipo de contenido no tiene cabida aquí.",
+            r5Title: "Respeto & comportamiento",
+            r5Intro: "El respeto es obligatorio. Los siguientes comportamientos están estrictamente prohibidos:",
+            r5L1: "Acoso, intimidación, amenazas, insultos o ataques personales.",
+            r5L2: "Sexismo, racismo, homofobia, transfobia, capacitismo, xenofobia o cualquier discurso de odio.",
+            r5L3: "Caza de brujas, difamación, rumores, doxxing o divulgación de información privada.",
+            r5L4: "Provocaciones, comportamiento tóxico, troleo deliberado o intentos de crear conflictos.",
+            r5L5: "Discriminación en cualquiera de sus formas.",
+            r5End: "Cada miembro debe sentirse seguro y respetado.",
+            r6Title: "Denuncias & sanciones",
+            r6Intro: "Si observas un comportamiento contrario a las reglas, contenido problemático o algo que te incomode, contacta inmediatamente con un moderador. Nuestro objetivo es mantener un entorno acogedor, seguro y agradable para todos. Los moderadores están para ayudar, escuchar e intervenir si es necesario. Gracias por contribuir a que este servidor sea un espacio positivo y amable.",
+            r6SanctionsIntro: "En caso de infracciones graves o repetidas del reglamento, el equipo de moderación puede aplicar sanciones. Estas pueden ir desde una simple advertencia hasta un <span class=\"danger\">baneo permanente</span> del servidor. Las siguientes situaciones pueden conllevar un baneo inmediato, sin advertencia previa:",
+            r6L1: "Acoso, amenazas, intimidación o comportamiento que ponga en peligro a un miembro.",
+            r6L2: "Difusión de contenido ilegal, explícito, peligroso o deliberadamente dañino.",
+            r6L3: "Intento de piratería, difusión de software malicioso, enlaces fraudulentos o actividades que comprometan la seguridad del servidor.",
+            r6L4: "Suplantación de identidad, doxxing, divulgación de información privada o personal.",
+            r6L5: "Eludir una sanción (cuentas alternativas, múltiples cuentas, uso de VPN para volver tras un kick o ban).",
+            r6L6: "Actitud tóxica persistente a pesar de varias advertencias, o intención clara de dañar a la comunidad.",
+            footer: "El incumplimiento de este reglamento puede conllevar advertencias, sanciones o baneo permanente del servidor."
+        },
+        de: {
+            introSubtitle: "Ein freundlicher Raum. Lies die Regeln, wähle deine Sprache und tritt entspannt bei.",
+            introButton: "Betreten und Regeln ansehen",
+            tag: "Offizieller Discord-Server · Thèmes Divers",
+            title: "Serverregeln",
+            subtitle: "Mit dem Beitritt zu diesem Server akzeptierst du alle untenstehenden Regeln. Bitte lies sie sorgfältig.",
+            r1Title: "Willkommen & Grundprinzip",
+            r1Body: "Willkommen auf dem <strong>offiziellen Discord-Server von Thèmes Divers</strong>. Wir freuen uns über jedes neue Mitglied und hoffen, dass du schnell zu einem aktiven und respektvollen Teil unserer Community wirst. Bevor du teilnimmst, nimm dir bitte einen Moment Zeit, um diese Regeln aufmerksam zu lesen. Sie sollen eine angenehme, sichere und inklusive Umgebung für alle gewährleisten. Mit dem Beitritt zu diesem Server akzeptierst du automatisch alle untenstehenden Regeln.",
+            r2Title: "Streng verbotene Aktivitäten",
+            r2L1: "Kauf, Verkauf, Verleih, Tausch oder Verschenken von Accounts, digitalen Gegenständen oder virtuellen Währungen.",
+            r2L2: "Jegliche Form von Cheating, Hacking, Exploits, modifizierter Software, nicht autorisierten Scripts oder Manipulationen, die einen unfairen Vorteil verschaffen.",
+            r2L3: "Teilen von geschütztem Inhalt, vertraulichen Daten, NDA-Informationen, Datamines, Leaks, modifizierten Spieldateien oder jeglichen Elementen, die gegen Nutzungsbedingungen verstoßen.",
+            r2L4: "Verbreitung verdächtiger Dateien, potenziell gefährlicher Software, schädlicher Links oder jeglichen Inhalts, der die Sicherheit der Mitglieder gefährden kann.",
+            r2L5: "Jeglicher Versuch, Regeln, Sanktionen oder Moderationssysteme zu umgehen.",
+            r3Title: "Spam & Eigenwerbung",
+            r3L1: "Wiederholte Nachrichten, übermäßige Erwähnungen, Kettennachrichten usw.",
+            r3L2: "Werbung für Discord-Server, soziale Netzwerke, Websites, persönliche oder kommerzielle Projekte ohne vorherige Zustimmung eines Moderators.",
+            r3L3: "Versenden von Einladungen, Werbung oder Anfragen per Privatnachricht an andere Mitglieder, selbst wenn es „harmlos“ erscheint.",
+            r3L4: "Verwendung von Bots, Makros oder Automatisierungen zum Versenden unerwünschter Nachrichten.",
+            r4Title: "Sensibler & NSFW-Inhalt",
+            r4Intro: "Obszöner, schockierender oder altersbeschränkter Inhalt ist nicht erlaubt, egal ob Text, Bilder, Videos oder Links:",
+            r4L1: "Extreme Gewalt, Gore, Hypergewalt, verstörende oder traumatische Szenen.",
+            r4L2: "Benutzernamen, Status, Profilbilder oder Banner mit expliziten, anzüglichen oder unangemessenen Elementen.",
+            r4End: "Dieser Server ist ein <strong>familienfreundlicher</strong> Raum, und solche Inhalte haben hier keinen Platz.",
+            r5Title: "Respekt & Verhalten",
+            r5Intro: "Respekt ist Pflicht. Folgendes Verhalten ist strengstens verboten:",
+            r5L1: "Belästigung, Einschüchterung, Drohungen, Beleidigungen oder persönliche Angriffe.",
+            r5L2: "Sexismus, Rassismus, Homophobie, Transphobie, Ableismus, Fremdenfeindlichkeit oder jegliche Hassrede.",
+            r5L3: "Hexenjagd, Verleumdung, Gerüchte, Doxxing oder Veröffentlichung privater Informationen.",
+            r5L4: "Provokationen, toxisches Verhalten, absichtliches Trolling oder der Versuch, Konflikte zu erzeugen.",
+            r5L5: "Diskriminierung in jeglicher Form.",
+            r5End: "Jedes Mitglied soll sich sicher und respektiert fühlen.",
+            r6Title: "Meldungen & Sanktionen",
+            r6Intro: "Wenn du ein regelwidriges Verhalten, problematische Inhalte oder etwas bemerkst, das dich unwohl fühlen lässt, wende dich sofort an einen Moderator. Unser Ziel ist es, eine einladende, sichere und angenehme Umgebung für alle zu erhalten. Die Moderatoren sind da, um zu helfen, zuzuhören und bei Bedarf einzugreifen. Danke, dass du dazu beiträgst, diesen Server positiv und freundlich zu halten.",
+            r6SanctionsIntro: "Bei schweren oder wiederholten Regelverstößen kann das Moderationsteam Sanktionen verhängen. Diese reichen von einer einfachen Verwarnung bis zu einem <span class=\"danger\">permanenten Bann</span> vom Server. In folgenden Fällen kann ein sofortiger Bann ohne vorherige Verwarnung erfolgen:",
+            r6L1: "Belästigung, Drohungen, Einschüchterung oder Verhalten, das ein Mitglied gefährdet.",
+            r6L2: "Verbreitung illegaler, expliziter, gefährlicher oder absichtlich schädlicher Inhalte.",
+            r6L3: "Versuchtes Hacking, Verbreitung von Malware, betrügerische Links oder Aktivitäten, die die Sicherheit des Servers gefährden.",
+            r6L4: "Identitätsdiebstahl, Doxxing, Veröffentlichung privater oder persönlicher Informationen.",
+            r6L5: "Umgehung einer Sanktion (Zweitaccount, mehrere Accounts, Nutzung eines VPN nach Kick oder Bann).",
+            r6L6: "Anhaltend toxisches Verhalten trotz mehrerer Verwarnungen oder eine klare Absicht, der Community zu schaden.",
+            footer: "Die Nichteinhaltung dieser Regeln kann zu Verwarnungen, Sanktionen oder einem permanenten Bann vom Server führen."
+        }
+    };
+
+    const langSelect = document.getElementById('langSelect');
+    const intro = document.getElementById('intro');
+    const enterBtn = document.getElementById('enterBtn');
+    const cursor = document.querySelector('.cursor');
+    const rules = document.querySelectorAll('.rule');
+
+    function applyLanguage(lang) {
+        const dict = i18n[lang] || i18n.fr;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (dict[key] !== undefined) {
+                el.innerHTML = dict[key];
+            }
+        });
+        document.documentElement.lang = lang;
+    }
+
+    langSelect.addEventListener('change', () => {
+        applyLanguage(langSelect.value);
+    });
+
+    enterBtn.addEventListener('click', () => {
+        intro.classList.add('hidden');
+        setTimeout(() => {
+            intro.style.display = 'none';
+        }, 650);
+    });
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    rules.forEach(rule => observer.observe(rule));
+
+    window.addEventListener('mousemove', e => {
+        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    });
+
+    applyLanguage('fr');
+</script>
+</body>
+</html>
